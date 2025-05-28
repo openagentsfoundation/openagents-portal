@@ -15,8 +15,8 @@
       <section class="h-screen w-full snap-start relative">
         <!-- 视频层 -->
         <video
+          id="video"
           class="absolute inset-0 w-full h-full object-cover"
-          src="src/assets/banner_video.mp4"
           autoplay
           loop
           muted
@@ -28,7 +28,7 @@
               <div class="flex items-center md:gap-x-12">
                 <a aria-label="Home" href="#">
                   <img
-                    class="size-12 rounded-full"
+                    class="size-10 sm:size-12 rounded-full"
                     src="src/assets/logo.png"
                     alt="logo"
                   />
@@ -62,15 +62,8 @@
                 </div>
               </div>
               <div class="flex items-center gap-x-5 md:gap-x-8">
-                <!-- <div class="hidden md:block">
-                  <a
-                    class="inline-block rounded-lg px-2 py-1 text-lg text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-                    href="#"
-                    >Documentation</a
-                  >
-                </div> -->
                 <a
-                  class="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lg font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600"
+                  class="group inline-flex items-center justify-center rounded-full py-2 px-4 text-base sm:text-lg font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600"
                   color="blue"
                   variant="solid"
                   href="#"
@@ -86,15 +79,15 @@
         <div
           class="absolute inset-0 z-10 flex items-center flex-col justify-center"
         >
-          <h1 class="text-5xl font-bold mb-18">OpenAgents Foundation</h1>
-          <p class="mx-auto max-w-2xl text-2xl tracking-tight text-slate-700">
-            Democratize and accelerate the development of
-          </p>
-          <p class="mx-auto max-w-2xl text-2xl tracking-tight text-slate-700">
-            intelligent, autonomous systems by creating open-source
-          </p>
-          <p class="mx-auto max-w-2xl text-2xl tracking-tight text-slate-700">
-            AI agents, SDKs and solutions.
+          <h1 class="text-2xl sm:text-5xl font-bold mb-18">
+            OpenAgents Foundation
+          </h1>
+          <p
+            class="mx-auto max-w-2xl text-xl sm:text-2xl tracking-tight text-slate-700 text-center px-4 sm:px-6 lg:px-8"
+          >
+            Democratize and accelerate the development of intelligent,
+            autonomous systems by creating open-source AI agents, SDKs and
+            solutions.
           </p>
         </div>
       </section>
@@ -102,17 +95,15 @@
       <section class="h-screen w-full grid snap-start relative">
         <div class="flex items-center flex-col justify-center">
           <h1
-            class="mx-auto max-w-4xl font-display font-medium tracking-tight text-slate-900 text-7xl mb-6"
+            class="mx-auto max-w-4xl font-display font-medium tracking-tight text-slate-900 text-3xl sm:text-5xl mb-6"
           >
-            OpenAgents <span class="text-5xl">SDK</span>
+            OpenAgents <span class="text-2xl sm:text-5xl">SDK</span>
           </h1>
           <p
-            class="mx-auto mt-6 max-w-2xl text-2xl tracking-tight text-slate-700 mb-2"
+            class="mx-auto mt-6 max-w-2xl text-xl sm:text-2xl tracking-tight text-slate-700 mb-2 text-center px-4 sm:px-6 lg:px-8"
           >
-            An Open Framework and Best Practices for developing AI Agents.
-          </p>
-          <p class="mx-auto max-w-2xl text-2xl tracking-tight text-slate-700">
-            Make Al Agents Real for Business.
+            An Open Framework and Best Practices for developing AI Agents. Make
+            Al Agents Real for Business.
           </p>
           <div class="mt-10 flex justify-center gap-x-6">
             <a
@@ -123,14 +114,16 @@
               >View on GitHub</a
             >
           </div>
-          <p class="font-display text-xl text-slate-900 mt-30">
+          <p
+            class="font-display text-sm sm:text-xl text-slate-900 mt-30 text-center px-4 sm:px-6 lg:px-8"
+          >
             Compatible with leading LLM models on the cloud and on premise
           </p>
         </div>
         <footer class="absolute bottom-4 w-full px-4 sm:px-6 lg:px-8">
           <div class="mx-auto max-w-7xl flex justify-between items-center">
             <p class="text-sm text-slate-700">
-              Copyright © 2025 OpenAgents Foundation. All rights reserved.
+              Copyright © 2025 OpenAgents Foundation.
             </p>
             <a
               href="https://github.com/openagentsfoundation/openagents-sdk"
@@ -156,4 +149,21 @@
     </main>
   </body>
   <script type="module" src="/src/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const video = document.getElementById("video");
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource("/video/output.m3u8");
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = "/video/output.m3u8";
+      video.addEventListener("loadedmetadata", function () {
+        video.play();
+      });
+    }
+  </script>
 </html>
