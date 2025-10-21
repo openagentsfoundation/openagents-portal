@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "publish": "rsync --delete -avz -r dist/* azureuser@20.2.19.51:/home/azureuser/workspace/openagents-portal"
   },
   "devDependencies": {
     "vite": "^6.3.5"
